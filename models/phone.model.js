@@ -28,6 +28,5 @@ const phoneSchema = new mongoose.Schema({
     }
  });
 
- const Phone = mongoose.Model('Phone', phoneSchema);
+ const Phone = mongoose.model('Phone', phoneSchema);
  module.exports = Phone;
- 

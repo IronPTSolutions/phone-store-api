@@ -1,6 +1,9 @@
+const Phone = require('../models/phone.model');
 
 module.exports.list = (req, res, next) => {
-  res.json({ message: 'Unimplemented'});
+  Phone.find()
+    .then(phones => res.json(phones))
+    .catch(error => next(error));
 }
 
 module.exports.get = (req, res, next) => {
