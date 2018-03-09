@@ -22,7 +22,7 @@ const phoneSchema = new mongoose.Schema({
         transform: (doc, ret) => {
             ret.id = doc._id;
             delete ret._id;
-            delete ret.v;
+            delete ret.__v;
             return ret;
         }
     }

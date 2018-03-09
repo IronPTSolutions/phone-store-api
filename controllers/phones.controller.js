@@ -25,7 +25,19 @@ module.exports.get = (req, res, next) => {
 }
 
 module.exports.create = (req, res, next) => {
-  res.json({ message: 'Unimplemented' });
+  const phone = new Phone(req.body);
+  phone.save()
+    .then(() => {
+      res.status(200).json(phone);
+    })
+    .catch(error => {
+      if (error instanceof mongoose.Error.ValidationError) {
+        console.log(error);
+        next(new ApiError(error.errors));
+      } else {
+        next(new ApiError(error.message, 500));
+      }
+    })
 }
 
 module.exports.delete = (req, res, next) => {
