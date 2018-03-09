@@ -30,15 +30,15 @@ app.use('/phones', phones);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+  const error = new Error('Not Found');
+  error.status = 404;
+  next(error);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.json(err);
+app.use(function(error, req, res, next) {
+  res.status(error.status || 500);
+  res.json({ message: error.message || '' });
 });
 
 module.exports = app;
