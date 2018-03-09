@@ -41,7 +41,19 @@ module.exports.create = (req, res, next) => {
 }
 
 module.exports.delete = (req, res, next) => {
-  res.json({ message: 'Unimplemented' });
+  const id = req.params.id;
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    Phone.findByIdAndRemove(id)
+      .then(phone => {
+        if (phone) {
+          res.status(204).json()
+        } else {
+          next(new ApiError(`Phone not found`, 404));
+        }
+      }).catch(error => next(error));
+  } else  {
+    next(new ApiError(`Invalid phone id: ${id}`));
+  }
 }
 
 module.exports.edit = (req, res, next) => {
