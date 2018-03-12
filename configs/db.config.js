@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 const DB_NAME = 'phone-store';
 const MONGODB_URI = `mongodb://localhost/${DB_NAME}`;
