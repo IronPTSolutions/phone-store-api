@@ -15,7 +15,7 @@ module.exports.create = (req, res, next) => {
           })
           .catch(error => {
             if (error instanceof mongoose.Error.ValidationError) {
-              next(new ApiError(error.errors, 400));
+              next(new ApiError(error.message, 400, error.errors));
             } else {
               next(error);
             }

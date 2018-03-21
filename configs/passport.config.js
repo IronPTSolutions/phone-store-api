@@ -22,14 +22,14 @@ module.exports.setup = (passport) => {
     User.findOne({ email: email })
       .then(user => {
         if (!user) {
-          next(null, user, { password: 'Invalid email or password' });
+          next(null, user, 'Invalid email or password');
         } else {
           user.checkPassword(password)
             .then(match => {
               if (match) {
                 next(null, user);
               } else {
-                next(null, null, { password: 'Invalid email or password' });
+                next(null, null, 'Invalid email or password');
               }
             })
             .catch(error => next(error));

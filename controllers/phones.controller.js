@@ -28,7 +28,6 @@ module.exports.create = (req, res, next) => {
     })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
-        console.log(error);
         next(new ApiError(error.errors));
       } else {
         next(new ApiError(error.message, 500));
@@ -57,5 +56,11 @@ module.exports.edit = (req, res, next) => {
       } else {
         next(new ApiError(`Phone not found`, 404));
       }
-    }).catch(error => next(error));
+    }).catch(error => {
+      if (error instanceof mongoose.Error.ValidationError) {
+        next(new ApiError(error.message, 400, error.errors));
+      } else {
+        next(new ApiError(error.message, 500));
+      }
+    });
 }
