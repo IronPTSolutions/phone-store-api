@@ -53,7 +53,7 @@ module.exports.edit = (req, res, next) => {
   Phone.findByIdAndUpdate(id, { $set: req.body }, { new: true })
     .then(phone => {
       if (phone) {
-        res.status(200).json(phone)
+        res.json(phone)
       } else {
         next(new ApiError(`Phone not found`, 404));
       }

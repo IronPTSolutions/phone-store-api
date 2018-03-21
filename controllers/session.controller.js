@@ -6,19 +6,19 @@ module.exports.create = (req, res, next) => {
   const password = req.body.password;
 
   if (!email || !password) {
-    next(new ApiError('Email and password are required', 400));
+    next(new ApiError('Email and password are required'));
   } else {
-    passport.authenticate('local-auth', (err, user, message) => {
-      if (err) {
-        next(err);
+    passport.authenticate('local-auth', (error, user, message) => {
+      if (error) {
+        next(error);
       } else if (!user) {
         next(new ApiError(message, 401));
       } else {
-        req.login(user, (err) => {
-          if (err) {
-            next(err);
+        req.login(user, (error) => {
+          if (error) {
+            next(new ApiError(error.message, 500));
           } else {
-            res.json({ id: user._id, email: user.email });
+            res.status(201).json(req.user);
           }
         });
       }
@@ -28,5 +28,5 @@ module.exports.create = (req, res, next) => {
 
 module.exports.destroy = (req, res, next) => {
   req.logout();
-  req.status(200).json({ message: 'Success' });
+  res.status(204).json();
 };

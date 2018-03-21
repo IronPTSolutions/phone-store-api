@@ -3,8 +3,8 @@ const ApiError = require('../models/api-error.model');
 
 module.exports.isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
-        next()
+        next();
     } else {
-        next(new ApiError('Unauthorized', 403));
+        next(new ApiError('Forbidden', 403));
     }
 };
