@@ -22,6 +22,9 @@ module.exports.get = (req, res, next) => {
 
 module.exports.create = (req, res, next) => {
   const phone = new Phone(req.body);
+  if (req.file) {
+    phone.image = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+  }
   phone.save()
     .then(() => {
       res.status(201).json(phone);
@@ -49,6 +52,10 @@ module.exports.delete = (req, res, next) => {
 
 module.exports.edit = (req, res, next) => {
   const id = req.params.id;
+  if (req.file) {
+    body.image = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+  }
+  
   Phone.findByIdAndUpdate(id, { $set: req.body }, { new: true })
     .then(phone => {
       if (phone) {
