@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-  secret: 'Super Secret',
+  secret: process.env.COOKIE_SECRET || 'Super Secret',
   resave: true,
   saveUninitialized: true,
   cookie: {
