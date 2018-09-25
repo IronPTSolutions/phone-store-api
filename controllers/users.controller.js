@@ -9,7 +9,7 @@ module.exports.list = (req, res, next) => {
 }
 
 module.exports.create = (req, res, next) => {
-  User.find({ email: req.body.email })
+  User.findOne({ email: req.body.email })
     .then(user => {
       if (user) {
         throw createError(409, `User with email ${req.body.email} already exists`);
