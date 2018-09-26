@@ -24,6 +24,11 @@ module.exports.get = (req, res, next) => {
 
 module.exports.create = (req, res, next) => {
   const phone = new Phone(req.body);
+
+  if (req.file) {
+    phone.image = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+  }
+
   phone.save()
     .then(phone => res.status(201).json(phone))
     .catch(error => next(error));

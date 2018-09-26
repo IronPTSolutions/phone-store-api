@@ -23,5 +23,4 @@ module.exports.create = (req, res, next) => {
       }
     })
     .catch(error => next(error));
-  
 }
